@@ -16,6 +16,7 @@ from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import TEST_USER_ID
 from plone.i18n.interfaces import ILanguageSchema
 from plone.registry.interfaces import IRegistry
+from plone.restapi import HAS_DISCUSSION
 from plone.restapi.tests.dxtypes import INDEXES as DX_TYPES_INDEXES
 from plone.restapi.tests.helpers import add_catalog_indexes
 from plone.testing import zope
@@ -144,6 +145,9 @@ class PloneRestApiDXLayer(PloneSandboxLayer):
         applyProfile(portal, "collective.MockMailHost:default")
         states = portal.portal_workflow["simple_publication_workflow"].states
         states["published"].title = "Published with accent é"  # noqa: E501
+        # plone.app.discussion became a core addon with Plone 6.1
+        if HAS_DISCUSSION:
+            applyProfile(portal, "plone.app.discussion:default")
 
 
 PLONE_RESTAPI_DX_FIXTURE = PloneRestApiDXLayer()

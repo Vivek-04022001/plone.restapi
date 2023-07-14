@@ -6,6 +6,7 @@ from plone.app.discussion.interfaces import IReplies
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.registry.interfaces import IRegistry
+from plone.restapi import HAS_DISCUSSION
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.testing import normalize_html
 from plone.restapi.testing import PLONE_RESTAPI_DX_INTEGRATION_TESTING
@@ -17,7 +18,10 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
 
+import unittest
 
+
+@unittest.skipIf(not HAS_DISCUSSION, "plone.app.discussion not installed.")
 class TestCommentsSerializers(TestCase):
     layer = PLONE_RESTAPI_DX_INTEGRATION_TESTING
 

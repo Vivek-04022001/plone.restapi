@@ -12,6 +12,12 @@ try:
 except pkg_resources.DistributionNotFound:
     HAS_MULTILINGUAL = False
 
+try:
+    pkg_resources.get_distribution("plone.app.discussion")
+    HAS_DISCUSSION = True
+except pkg_resources.DistributionNotFound:
+    HAS_DISCUSSION = False
+
 _ = MessageFactory("plone.restapi")
 PROJECT_NAME = "plone.restapi"
 
